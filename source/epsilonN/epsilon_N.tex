@@ -1,0 +1,365 @@
+\documentclass[a4paper,16pt]{jsarticle}
+
+% 余白の設定
+\setlength{\textwidth}{\fullwidth}
+\setlength{\textheight}{40\baselineskip}
+\addtolength{\textheight}{\topskip}
+\setlength{\voffset}{-0.2in}
+\setlength{\topmargin}{0pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+
+% パッケージ
+\usepackage[dvipdfmx]{hyperref,graphicx}		% 画像
+\hypersetup{
+	colorlinks=true, % リンクに色をつけない設定
+	bookmarks=true, % 以下ブックマークに関する設定
+	bookmarksnumbered=true,
+	pdfborder={0 0 0},
+	bookmarkstype=toc
+}
+\usepackage{amsmath, amssymb}		% ギリシャ文字
+\usepackage{bm}				% 数式　\bm{a} aベクトル
+\usepackage{comment}			% コメント
+\usepackage{siunitx}			% SI単位
+\usepackage{framed}			% 枠組み
+\usepackage{braket}     % ブラケット記法
+\usepackage{framed} % 枠
+
+
+\newtheorem{theorem}{定理}
+\newtheorem{definition}{定義}
+\newtheorem{proof}{証明}
+\newcommand{\qed}{\qquad $\blacksquare$}
+
+\begin{comment}
+　複数行に渡るコメントの書き方
+　\usepackage{comment}が必要。
+\end{comment}
+
+% section前に改ページ
+\makeatletter
+\def\section{\newpage\@startsection {section}{1}{\z@}{-3.5ex plus -1ex minus -.2ex}{2.3 ex plus .2ex}{\Large\bf}}
+\makeatother
+
+% 数式番号をいい感じに
+\makeatletter
+% \renewcommand{\theequation}{\arabic{chapter}-\arabic{section}-\arabic{equation}}
+	\renewcommand{\theequation}{\arabic{section}-\arabic{equation}}
+  \@addtoreset{equation}{section}
+\makeatother
+
+% \title{$\varepsilon N$と$\varepsilon\delta$}
+\title{$\varepsilon N$}
+\author{ゆきちゃん}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{はじめに}
+%
+% {$\varepsilon N$論法や$\varepsilon\delta$論法と呼ばれる数列の極限や関数の連続を厳密に定義したものがあるが、難しいので、復習も兼ねてざっくりとした解説を書いてみた。
+
+{$\varepsilon N$論法と呼ばれる数列の極限を厳密に定義したものがあるが、難しいので、復習も兼ねてざっくりとした解説を書いてみた。
+
+内容に誤りや誤植、追加して欲しいものがあれば教えてもらえると嬉しい。
+
+\section{$\varepsilon N$論法}
+数列$a_n$が$\alpha$に収束するとは、$\varepsilon N$論法で書くと
+\begin{framed}
+	任意の正の実数$\varepsilon$に対してある自然数$N$が存在し、$n > N$となる全ての自然数$n$に対して
+	$|a_n - \alpha| < \varepsilon$となる。
+\end{framed}
+となるが、よく分からない。
+もう少し細かく書くと
+\begin{framed}
+	どんなに小さな正の実数正の$\varepsilon$が与えられても、$\varepsilon$に対してある自然数$N$を選ぶことで、$n > N$となる全ての自然数$n$に対して
+	$|a_n - \alpha| < \varepsilon$となる。
+\end{framed}
+これを示すことができれば、数列$a_n$が$\alpha$に収束することが示せるわけだ。
+
+\begin{center}
+	{\bf で？？？結局何をすればいいの？？？}
+\end{center}
+
+\begin{enumerate}
+	\item あなたに正の実数$\varepsilon$を与えるね！
+	\item どういう値の$\varepsilon$が与えられるかあなたにはわかりません。
+	\item でも、$N$より大きい全ての$n$について$|a_n - \alpha| < \epsilon$が成立するような$N$を見つけてね！
+\end{enumerate}
+つまり、
+\begin{center}
+	{\bf $\varepsilon$を使って$N$を見つける！}
+\end{center}
+もう少し言い換えると
+\begin{center}
+	{\bf $N$を$\varepsilon$で表す式などを見つける！}
+\end{center}
+ということだ。
+
+\subsection{具体例1}
+数列$a_n$を
+\begin{equation}
+	a_n = \dfrac{1}{n}
+\end{equation}
+として、
+\begin{equation}
+	\lim_{n \to \infty} a_n = 0
+\end{equation}
+を示してみよう。
+
+証明したいことは
+\begin{oframed}
+	どんな正の実数$\epsilon$が与えられても、$N$より大きい全ての自然数$n$について
+	\begin{equation}
+		\left|\dfrac{1}{n} - 0\right| < \varepsilon
+	\end{equation}
+	となるような自然数$N$が存在する。
+\end{oframed}
+この$N$を見つけて行こう。
+
+実は機械的な操作で$N$を求めることができる\footnote{できない場合もあるかもしれない}。
+ヒントは
+\begin{equation}
+	\left|\dfrac{1}{n} - 0\right| < \varepsilon \nonumber
+\end{equation}
+だ。これの式を変形していく。
+\begin{align}
+	\left|\dfrac{1}{n} - 0\right| &< \varepsilon \\
+	\left|\dfrac{1}{n}\right| &< \varepsilon\\
+	\dfrac{1}{n} &< \varepsilon \\
+	\dfrac{1}{\varepsilon} &< n
+\end{align}
+この最後の式
+\begin{equation}
+	\dfrac{1}{\varepsilon} < n \nonumber
+\end{equation}
+と、{\bf$N$より大きい全ての自然数$n$}、つまり
+\begin{equation}
+	n > N \nonumber
+\end{equation}
+この$2$の式を見比べてみると、
+\begin{equation}
+	N = \dfrac{1}{\varepsilon} \nonumber
+\end{equation}
+とできそうと分かる。しかも、$N$が$\varepsilon$を使って表せている。
+しかし、$N$は自然数なので、
+\begin{center}
+	$N$は$\dfrac{1}{\varepsilon}$より大きい自然数の$1$つ
+\end{center}
+としてやれば良い。\footnote{このような自然数が存在することがアルキメデスの原理によって保証されている。}
+数式で書きたい場合は、ガウス記号を用いて
+\begin{equation}
+	N = \left[\dfrac{1}{\varepsilon}\right] + 1
+\end{equation}
+とすれば良い。\footnote{ある実数に対して、それ以下の最大の整数が存在することもアルキメデスの原理が保証している。}
+
+以上が、与えられた$\varepsilon$から$N$を作り出す方法である。
+
+改めて、
+\begin{equation}
+	\lim_{n\to\infty} \dfrac{1}{n} = 0
+\end{equation}
+を示そう。
+\begin{proof}
+	\begin{oframed}
+		任意の正の実数$\varepsilon$に対して、
+		自然数$N$を
+		\begin{equation}
+			N = \left[\dfrac{1}{\varepsilon}\right] + 1
+		\end{equation}
+		と決める。すると、$N$より大きい全ての自然数$n$について
+		\begin{equation}
+			\dfrac{1}{n} < \dfrac{1}{N} = \dfrac{1}{[\frac{1}{\varepsilon}] + 1} < \dfrac{1}{\frac{1}{\varepsilon}} = \varepsilon
+		\end{equation}
+		つまり、
+		\begin{equation}
+			\dfrac{1}{n} < \varepsilon
+		\end{equation}
+		なので、
+		\begin{equation}
+			\left|\dfrac{1}{n} - 0\right| < \varepsilon
+		\end{equation}
+		これは
+		\begin{equation}
+			\lim_{n\to\infty} \dfrac{1}{n} = 0
+		\end{equation}
+		が成立していることを示している。
+	\end{oframed}
+\end{proof}
+
+\subsection{具体例2}
+数列$a_n$を
+\begin{equation}
+	a_n = \dfrac{n}{1+n}
+\end{equation}
+として、
+\begin{equation}
+	\lim_{n \to \infty} a_n = 1
+\end{equation}
+を示してみよう。
+まず、
+\begin{equation}
+	a_n - 1 = \dfrac{n}{n+1} - 1 = - \dfrac{1}{n+1}
+\end{equation}
+よって、
+\begin{equation}
+	|a_n - 1| = \dfrac{1}{n+1} < \varepsilon
+\end{equation}
+つまり、
+\begin{equation}
+	n > \dfrac{1}{\varepsilon} - 1
+\end{equation}
+従って、
+	\begin{proof}
+	\begin{oframed}
+		任意の$\varepsilon>0$に対して、$N$を$\frac{1}{\varepsilon} - 1$より大きい$1$つの自然数とすれば、
+		$n > N$となる全ての自然数$n$に対して、$|a_n - 1| < \varepsilon$
+	\end{oframed}
+\end{proof}
+
+\newpage
+
+\subsection{よく使う性質}
+今、$2$つの数列$a_n$と$b_n$について
+\begin{align}
+	\lim_{n \to \infty} a_n &= \alpha \\
+	\lim_{n \to \infty} b_n &= \beta
+\end{align}
+とする。
+この時、
+\begin{align}
+	\lim_{n \to \infty} (a_n \pm b_n) &= \alpha \pm \beta \\
+	\lim_{n \to \infty} a_nb_n &= \alpha\beta \\
+	\lim_{n \to \infty} \dfrac{a_n}{b_n} &= \dfrac{\alpha}{\beta}~~~~(\beta \neq 0)\\
+	\lim_{n \to \infty} ka_n &= k\alpha~~~~(kは定数)
+\end{align}
+が成立する。
+
+ここで、$\lim_{n \to \infty} a_n = \alpha,\lim_{n \to \infty} b_n = \beta$ということは、
+任意の実数$\varepsilon>0$に対して自然数$N$が存在し、$n>N$となる全ての自然数$n$について
+\begin{equation}
+	\label{aboutN}
+	|a_n - \alpha| < \varepsilon, ~~~~~~~~ |b_n - \beta| < \varepsilon
+\end{equation}
+となる。ここで、同一の$\varepsilon$に対して、$N$は$a_n$と$b_n$について一般には違う。
+これを$N_1,N2$とすると、$N = \max(N_1,N_2)$と$N$を選んでやれば$n>N$となる全ての自然数$n$について(\ref{aboutN})は成立する。
+
+\begin{proof}{$\lim_{n \to \infty} (a_n + b_n) = \alpha + \beta$について}
+
+$a_n$に対して$N_1$、$b_n$に対して$N_2$と選ぶ。この時、任意の実数$\varepsilon$に対して$N = \max(N_1,N_2)$とすると、$n>N$となる全ての自然数$n$に対して、
+\begin{equation}
+	|a_n - \alpha| < \varepsilon, ~~~~~~~~ |b_n - \beta| < \varepsilon
+\end{equation}
+が成立する。
+そこで、
+\begin{align}
+	|(a_n + b_n) - (\alpha + \beta)|
+	&= |(a_n - \alpha) + (b_n - \beta)| \\
+	&\leq |(a_n - \alpha)| + |(b_n - \beta)| \\
+	&< 2\varepsilon
+\end{align}
+よって、
+\begin{equation}
+	\lim_{n \to \infty} (a_n + b_n) = \alpha + \beta
+\end{equation}
+\end{proof}
+
+\begin{proof}{$\lim_{n \to \infty} (a_n - b_n) = \alpha - \beta$について}
+
+$a_n$に対して$N_1$、$b_n$に対して$N_2$と選ぶ。この時、任意の実数$\varepsilon$に対して$N = \max(N_1,N_2)$とすると、$n>N$となる全ての自然数$n$に対して、
+\begin{equation}
+	|a_n - \alpha| < \dfrac{\varepsilon}{2}, ~~~~~~~~ |b_n - \beta| < \dfrac{\varepsilon}{2}
+\end{equation}
+が成立する。
+そこで、
+\begin{align}
+	|(a_n - b_n) - (\alpha - \beta)|
+	&= |(a_n - \alpha) - (b_n - \beta)| \\
+	&\leq |(a_n - \alpha)| + |(b_n - \beta)| \\
+	&< \varepsilon
+\end{align}
+よって、
+\begin{equation}
+	\lim_{n \to \infty} (a_n - b_n) = \alpha - \beta
+\end{equation}
+\end{proof}
+
+\begin{proof}{$\lim_{n \to \infty} a_nb_n = \alpha\beta$について}
+
+	$a_n$に対して$N_1$、$b_n$に対して$N_2$と選ぶ。この時、任意の実数$\varepsilon$に対して$N = \max(N_1,N_2)$とすると、$n>N$となる全ての自然数$n$に対して、
+	\begin{equation}
+		|a_n - \alpha| < \varepsilon, ~~~~~~~~ |b_n - \beta| < \varepsilon
+	\end{equation}
+	が成立する。
+	すると、
+	\begin{align}
+		|a_nb_n - \alpha\beta| &= |a_nb_n - \alpha\beta + a_n\beta - a_n\beta| \\
+		&= |a_n(b_n - \beta) + \beta(a_n - \alpha)| \\
+		&= |a_n||(b_n - \beta)| + |\beta||(a_n - \alpha)| \\
+		&\leq |a_n|\varepsilon + |\beta|\varepsilon
+	\end{align}
+
+	ここで、$n>N$となる全ての自然数$n$に対して、$a_n < |\alpha| + \varepsilon$である。
+	また、数列$a_n$は有限の数列なので、最大値も最小値も持つ。
+	そこで$C = \max(|a_1|,|a_2|,\cdots,|a_n|,|\alpha|+\varepsilon)$とすると、
+	\begin{align}
+		|a_nb_n - \alpha\beta| &\leq C\varepsilon + |\beta|\varepsilon \\
+		&= (C + |\beta|)\varepsilon
+	\end{align}
+	よって、
+	\begin{equation}
+		\lim_{n \to \infty} a_nb_n = \alpha\beta
+	\end{equation}
+\end{proof}
+
+\begin{proof}{$\lim_{n \to \infty} \dfrac{a_n}{b_n} = \dfrac{\alpha}{\beta}~~~~(\beta \neq 0)$について}
+
+	$a_n$に対して$N_1$、$b_n$に対して$N_2$と選ぶ。この時、任意の実数$\varepsilon$に対して$N = \max(N_1,N_2)$とすると、$n>N$となる全ての自然数$n$に対して、
+	\begin{equation}
+		|a_n - \alpha| < \varepsilon, ~~~~~~~~ |b_n - \beta| < \varepsilon
+	\end{equation}
+	が成立する。
+	すると、
+	\begin{align}
+		\left|\dfrac{a_n}{b_n} - \dfrac{\alpha}{\beta}\right|
+		&= \left| \dfrac{a_n\beta -\alpha b_n}{b_n\beta}\right| \\
+		&= \left| \dfrac{a_n\beta -\alpha b_n + \alpha\beta - \alpha\beta}{b_n\beta}\right|\\
+		&= \left| \dfrac{\beta(a_n-\alpha) -\alpha(b_n-\beta)}{b_n\beta}\right| \\
+		&= \left|\dfrac{1}{b_n\beta}\right|\left|\beta(a_n-\alpha) -\alpha(b_n-\beta)\right|\\
+		&\leq \left|\dfrac{1}{b_n\beta}\right|(|\beta||(a_n-\alpha)| + |\alpha||(b_n-\beta)|) \\
+		&\leq \left|\dfrac{1}{b_n\beta}\right|(|\beta|\varepsilon + |\alpha|\varepsilon) \\
+	\end{align}
+	ここで、$n>N$となる全ての自然数$n$に対して、$b_n < |\beta| + \varepsilon$である。
+	また、数列$b_n$は有限の数列なので、最大値も最小値も持つ。
+	そこで$C = \max(|b_1|,|b_2|,\cdots,|b_n|,|\beta|+\varepsilon)$とすると、
+	\begin{align}
+		\left|\dfrac{a_n}{b_n} - \dfrac{\alpha}{\beta}\right|
+		&\leq \dfrac{|\alpha|+|\beta|}{C}\varepsilon
+	\end{align}
+	よって、
+	\begin{equation}
+		\lim_{n \to \infty} \dfrac{a_n}{b_n} = \dfrac{\alpha}{\beta}~~~~(\beta \neq 0)
+	\end{equation}
+\end{proof}
+
+\begin{proof}{$\lim_{n \to \infty} ka_n = k\alpha~~~~(kは定数)$について}
+
+今、任意の実数$\varepsilon>0$に対して自然数$N$が存在し、$n>N$となる全ての自然数$N$について
+\begin{align}
+	|ka_n - k\alpha| &= |k||a_n - \alpha| \\
+	\leq |k|\varepsilon
+\end{align}
+よって
+\begin{equation}
+	\lim_{n \to \infty} ka_n = k\alpha~~~~(kは定数)
+\end{equation}
+\end{proof}
+
+\end{document}
